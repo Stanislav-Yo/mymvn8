@@ -110,4 +110,33 @@ public class TodosTest {
         Assertions.assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void shouldFoundMultipleTasksMatchingTheQuery() {
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        SimpleTask anotherSimpleTask = new SimpleTask(6, "Позвонить другу");
+        todos.add(anotherSimpleTask);
+
+        Task[] expected = {simpleTask, anotherSimpleTask};
+        Task[] actual = todos.search("Позвонить");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNotFoundAnyTasksMatchingTheQuery() {
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        Task[] expected = {};
+        Task[] actual = todos.search("Кот");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
 }
